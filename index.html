@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interface</title>
+    <style>
+        body {
+            /* background-color: yellow; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+        }
+
+        .step {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin: 0 10px;
+            border: 2px solid #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .step.active {
+            background-color: #fff;
+            border-color: #000;
+        }
+
+        .step.completed {
+            background-color: #00FF00;
+            border-color: #00FF00;
+        }
+
+        .step i {
+            font-size: 24px;
+        }
+
+        .step.active i {
+            color: #000;
+        }
+
+        .step.completed i {
+            color: #fff;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .button {
+            width: 50px;
+            height: 30px;
+            border-radius: 5px;
+            background-color: #ccc;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .button.active {
+            background-color: #007bff;
+        }
+        #div1{
+            background-color: yellow;
+            width:600px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container " id="div1">
+    <div class="container">
+        <div class="step"><i class="icon"></i></div>
+        <div class="step"><i class="icon"></i></div>
+        <div class="step"><i class="icon"></i></div>
+        <div class="step"><i class="icon"></i></div>
+        <div class="step"><i class="icon"></i></div>
+    </div>
+    <br>
+    <div class="buttons">
+        <button class="button">←</button>
+        <button class="button active">→</button>
+    </div>
+</div>
+    <script>
+        const steps = document.querySelectorAll('.step');
+        const buttons = document.querySelectorAll('.button');
+        let currentStep = 0;
+
+        function updateSteps() {
+            steps.forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                if (index === currentStep) {
+                    step.classList.add('active');
+                    step.querySelector('i').textContent = '✓';
+                } else if (index < currentStep) {
+                    step.classList.add('completed');
+                    step.querySelector('i').textContent = '✓';
+                } else {
+                    step.querySelector('i').textContent = 'X';
+                }
+            });
+        }
+
+        buttons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                if (index === 0) {
+                    if (currentStep > 0) {
+                        currentStep--;
+                    }
+                } else {
+                    if (currentStep < steps.length - 1) {
+                        currentStep++;
+                    }
+                }
+                updateSteps();
+            });
+        });
+
+        updateSteps(); // Initial update
+    </script>
+</body>
+</html>
